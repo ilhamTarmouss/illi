@@ -1,25 +1,18 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('loginAndNavigateToProject', () => {
+    cy.visit("https://dev.abxrengine.com/signin");
+    cy.get('input[data-cy="sign_in_email"]').type('ilhamgentille09@gmail.com');
+    cy.get('input[data-cy="sign_in_password"]').type('firstTIME2023/@@');
+    cy.get('[data-cy="sign_in_submit"]').click();
+  
+    // Use .should() with a timeout to ensure the URL changes as expected
+    cy.url().should('eq', 'https://dev.abxrengine.com/projects', { timeout: 10000 });
+  
+    // Set the viewport dimensions
+    cy.viewport(1600, 1000);
+  
+    // Wait for an element to be clickable before clicking it
+    cy.get(".addProject").should('be visible').click();
+    cy.wait(1000);
+   
+  });
+  
